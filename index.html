@@ -815,8 +815,28 @@
             </p>
         </footer>
     </div>
+     <audio id="bg-music" loop>
+    <source src="song.mp3.mpeg" type="audio/mpeg">
+</audio>
 
     <script>
+        const music = document.getElementById("bg-music");
+let isPlaying = false;
+
+function toggleMusic() {
+    const music = document.getElementById("bg-music");
+
+    if (isPlaying) {
+        music.pause();
+        isPlaying = false;
+        document.getElementById("music-btn").textContent = "🔇 Music";
+    } else {
+        music.play().then(() => {
+            isPlaying = true;
+            document.getElementById("music-btn").textContent = "🔊 Music";
+        }).catch(err => console.log(err));
+    }
+}
         // Create floating petals
         function createPetals() {
             const petals = ['🌸', '🌺', '💮', '✿', '❀'];
