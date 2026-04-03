@@ -850,26 +850,31 @@ function toggleMusic() {
             }
         }
 
-        // Open invitation
-        function openInvitation() {
-            const cover = document.getElementById('cover');
-            const mainContent = document.getElementById('main-content');
+       function openInvitation() {
+    const cover = document.getElementById('cover');
+    const mainContent = document.getElementById('main-content');
 
-            cover.classList.add('closing');
+    // ✅ Force play safely
+    music.muted = true;
+    music.play().then(() => {
+        music.muted = false;
+        isPlaying = true;
+    }).catch(err => console.log(err));
 
-            setTimeout(() => {
-                cover.classList.add('hidden');
-                mainContent.style.display = 'block';
-                mainContent.style.opacity = '0';
-                mainContent.style.transition = 'opacity 0.5s ease';
+    cover.classList.add('closing');
 
-                setTimeout(() => {
-                    mainContent.style.opacity = '1';
-                    initScrollAnimations();
-                }, 50);
-            }, 400);
-        }
+    setTimeout(() => {
+        cover.classList.add('hidden');
+        mainContent.style.display = 'block';
+        mainContent.style.opacity = '0';
+        mainContent.style.transition = 'opacity 0.5s ease';
 
+        setTimeout(() => {
+            mainContent.style.opacity = '1';
+            initScrollAnimations();
+        }, 50);
+    }, 400);
+}
         // Scroll animations using Intersection Observer
         function initScrollAnimations() {
             const observer = new IntersectionObserver((entries) => {
